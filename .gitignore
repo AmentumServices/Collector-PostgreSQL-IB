@@ -1,0 +1,11 @@
+# Ignore .vagrant
+.vagrant*
+
+# Ignore subdirectories
+!.github/
+PostgreSQL-IB/
+
+# Ignore Files
+*.tgz
+*.zip
+*.bundle

@@ -1,0 +1,6 @@
+registry1.dso.mil:
+    images-by-tag-regex:
+        ironbank/opensource/postgres/postgresql: (^15.8)
+        ironbank/bitnami/postgres: (^16.3.0)
+        ironbank/bitnami/postgresql-repmgr: (^16.3.0)
+        ironbank/opensource/postgres/postgresql-alpine: (^15.8)
