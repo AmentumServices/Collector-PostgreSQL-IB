@@ -54,12 +54,12 @@ jobs:
         run: |
           mkdir -p helmchart
           cd helmchart
-          echo -e "\nPull Helm chart"
+          echo -e "\nSet repo and pull chart"
           helm pull oci://registry-1.docker.io/bitnamicharts/postgresql
           echo -e "\nInstall helm images plugin"
           helm plugin install https://github.com/nikhilsbhat/helm-images
           echo -e "\nImages listed in chart"
-          helm images get argo/argo-cd
+          helm images get oci://registry-1.docker.io/bitnamicharts/postgresql
 
       - name: Directory Contents
         run: |
