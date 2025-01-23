@@ -52,14 +52,17 @@ jobs:
 
       - name: Grab helm
         run: |
-          mkdir -p helmchart
-          cd helmchart
-          echo -e "\nPull chart"
-          helm pull https://charts.bitnami.com/bitnami/postgresql
+          mkdir -p ${{ vars.COLLECTOR }}/helmchart
+          cd ${{ vars.COLLECTOR }}/helmchart
+          echo -e "\nSet repo and pull chart"
+          helm repo add postgresql https://charts.bitnami.com/bitnami/
+          helm pull postgresql/postgresql
           echo -e "\nInstall helm images plugin"
           helm plugin install https://github.com/nikhilsbhat/helm-images
           echo -e "\nImages listed in chart"
-          helm images get https://charts.bitnami.com/bitnami/postgresql
+          helm images get postgresql/postgresql
+          sha256sum -b * \
+          | tee ${{ vars.COLLECTOR }}-${{ needs.Date.outputs.Date }}.helm.sha
 
       - name: Directory Contents
         run: |
@@ -172,7 +175,12 @@ jobs:
           mkdir -p ${{ vars.COLLECTOR }}/helmchart
           cd ${{ vars.COLLECTOR }}/helmchart
           echo -e "\nSet repo and pull chart"
-          helm pull https://charts.bitnami.com/bitnami/postgresql
+          helm repo add postgresql https://charts.bitnami.com/bitnami/
+          helm pull postgresql/postgresql
+          echo -e "\nInstall helm images plugin"
+          helm plugin install https://github.com/nikhilsbhat/helm-images
+          echo -e "\nImages listed in chart"
+          helm images get postgresql/postgresql
           sha256sum -b * \
           | tee ${{ vars.COLLECTOR }}-${{ needs.Date.outputs.Date }}.helm.sha
 
